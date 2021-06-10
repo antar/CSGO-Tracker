@@ -1,21 +1,26 @@
 <?php 
 	
 	define("URL", "https://public-api.tracker.gg/v2/csgo/standard/profile/");
-
+    
 	class API {
 		
-		public $platform;
 		public $query;
 		
-		public function __construct(string $platform, string $query) {
+		public function __construct(string $query) {
 			
-			$this->platform = $platform;
+			ob_start();
+			
 			$this->query = $query;
+			
+			$this->getStats();
+			
+			ob_end_flush();
+			
 		}
 		
 		public function getStats() {
 			
-			$url = URL . $this->platform . '/' . $this->query;
+			$url = URL .  'steam/' . $this->query;
 			
 			$curl = curl_init($url);
 			
@@ -25,8 +30,12 @@
 			$response = curl_exec($curl) . PHP_EOL;
 			curl_close($curl);
 			
-		}	
+			$array = json_decode($response, true);
+			
+			/*
+			return $array["data"]["platformInfo"]["platformSlug"];
+			*/
+		}
 		
 	}
-
 ?>
