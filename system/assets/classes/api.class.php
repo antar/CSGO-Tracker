@@ -12,13 +12,11 @@
 			
 			$this->query = $query;
 			
-			$this->getStats();
-			
 			ob_end_flush();
 			
 		}
 		
-		public function getStats() {
+		public function getStats(string $data) {
 			
 			$url = URL .  'steam/' . $this->query;
 			
@@ -32,9 +30,10 @@
 			
 			$array = json_decode($response, true);
 			
-			/*
-			return $array["data"]["platformInfo"]["platformSlug"];
-			*/
+			foreach($array as $k => $v) {
+				return $v["platformInfo"]["${data}"];	
+			}
+			
 		}
 		
 	}
