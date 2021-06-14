@@ -56,12 +56,27 @@ if (isset($_GET["error"])) {
 	  <div class="inner">
 		<div id="content"> 
 		  <div>
-			
-			<form action="stats.php" method="get">
-				  <input type="text" name="value" placeholder="Enter Steam Name, Id, or URL..." />
-				  <input type="submit" value="Submit">
-			</form>
-			
+			<h2>Informations</h2>		
+			<p>
+				  <?php 
+				  $obj = new API($_GET['value']);
+				  
+				  echo "ID: " . $obj->getUserdata("platformUserId");
+				  echo "<br>";
+				  echo "Display Name: " . $obj->getUserdata("platformUserHandle");
+				  echo "<br>";
+				  echo "Total Wins: " . $obj->getStats("wins");
+				  echo "<br>";
+				  echo "Current KD: " . $obj->getStats("kd");
+				  echo "<br>";
+				  echo "Total Kills: " . $obj->getStats("kills");
+				  echo "<br>";
+				  echo "Total Deaths: " . $obj->getStats("deaths");
+				  echo "<br>";
+				  echo "Total MVP: " . $obj->getStats("mvp");
+				  echo "<br>";
+				  ?>
+				</p>
 		  </div>
 		</div>
 	  </div>
